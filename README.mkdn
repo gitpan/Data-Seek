@@ -1,0 +1,39 @@
+# NAME
+
+Data::Seek - Search Complex Data Structures
+
+# VERSION
+
+version 0.01
+
+# SYNOPSIS
+
+    use Data::Seek;
+
+    my $hash   = {...};
+    my $seeker = Data::Seek->new(data => $hash);
+    my $result = $seeker->search('*');
+
+    $result->data;
+
+# DESCRIPTION
+
+Data::Seek is a module for traversing complex data structures. This module
+allows you to select specific node(s) in a hierarchical data structure using a
+criteria. A criteria is an expression consisting of one or more criterion. A
+criterion is the part of the criteria that is used to select node(s) and
+sub-node(s) to be returned in the result. Data::Seek is akin to [Data::Dpath](http://search.cpan.org/perldoc?Data::Dpath)
+but with far fewer features, a simpler node selection syntax, and a
+non-recursive approach toward traversal which makes Data::Seek extremely fast
+and efficient.
+
+# AUTHOR
+
+Al Newkirk <anewkirk@ana.io>
+
+# COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2014 by Al Newkirk.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.

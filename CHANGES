@@ -1,0 +1,7 @@
+Changelog for Data-Seek
+
+0.01 2014-08-08T23:33:03
+ - Fixed t/data/seek/exception.t
+ - Miscellaneous refactoring,
+ - Initial commit.
+
