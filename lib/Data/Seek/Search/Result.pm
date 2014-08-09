@@ -11,7 +11,7 @@ use Data::Seek::Search;
 
 use Mo 'builder';
 
-our $VERSION = '0.02'; # VERSION
+our $VERSION = '0.03'; # VERSION
 
 has 'datasets',
     builder => '_build_datasets';
@@ -78,7 +78,7 @@ Data::Seek::Search::Result - Data::Seek Search Result Class
 
 =head1 VERSION
 
-version 0.02
+version 0.03
 
 =head1 SYNOPSIS
 

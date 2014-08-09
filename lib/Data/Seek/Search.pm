@@ -14,7 +14,7 @@ use Data::Seek::Search::Result;
 
 use Mo 'default';
 
-our $VERSION = '0.02'; # VERSION
+our $VERSION = '0.03'; # VERSION
 
 has 'criteria',
     default => sub {{}};
@@ -252,7 +252,7 @@ Data::Seek::Search - Data::Seek Search Execution Class
 
 =head1 VERSION
 
-version 0.02
+version 0.03
 
 =head1 SYNOPSIS
 

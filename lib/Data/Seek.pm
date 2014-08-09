@@ -10,7 +10,7 @@ use Data::Seek::Search;
 
 use Mo 'default';
 
-our $VERSION = '0.02'; # VERSION
+our $VERSION = '0.03'; # VERSION
 
 has 'data',
     default => sub {{}};
@@ -50,7 +50,7 @@ Data::Seek - Search Complex Data Structures
 
 =head1 VERSION
 
-version 0.02
+version 0.03
 
 =head1 SYNOPSIS
 
@@ -71,12 +71,10 @@ criterion is the part of the criteria that is used to select node(s) and
 sub-node(s) to be returned in the result. Data::Seek is akin to L<Data::Dpath>
 but with far fewer features, a simpler node selection syntax, and a
 non-recursive approach toward traversal which makes Data::Seek extremely fast
-and efficient.
-
-An even better reason to use Data::Seek is it's ability to throw exception
-objects which explain, in detail, why a search failed. This is very useful
-internally, and externally when processing foreign data structures where you
-need to provide detailed errors explaining how to resolve the missing or
+and efficient. An even better reason to use Data::Seek is its ability to throw
+exception objects which explain, in detail, why a search failed. This is very
+useful internally, and externally when processing foreign data structures where
+you need to provide detailed errors explaining how to resolve the missing or
 malformed data nodes. For more information on the underlying concepts, please
 see L<Data::Seek::Concepts>.
 
@@ -105,7 +103,7 @@ the data structure.
     my @criteria = ('id', 'person.name.*');
     my $result   = $seeker->search(@criteria);
 
-Prepare a search object for using the supplied criteria and return a result
+Prepare a search object to use the supplied criteria and return a result
 object. Introspection is triggered when the result object is enacted. See
 L<Data::Seek::Search::Result> for usage information.
 

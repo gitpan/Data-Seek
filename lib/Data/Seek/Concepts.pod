@@ -15,7 +15,7 @@ Data::Seek::Concepts - Data::Seek Concepts
 
 =head1 VERSION
 
-version 0.02
+version 0.03
 
 =head1 OVERVIEW
 
@@ -32,7 +32,7 @@ where it's keys represent endpoints within the structure.
 
 =head2 Encoding
 
-During the processing of flattening a data stricture with nested data, the
+During the processing of flattening a data structure with nested data, the
 following data structure would be converted into a collection of endpoint/value
 pairs.
 
@@ -103,6 +103,8 @@ exception explaining the search failure.
 =head2 Node Expression
 
     id
+    patient
+    medications
 
 The node expression is a criterion, or part of a criterion, which matches
 against a single node. It is a string which can contain letters, numbers, and/or
