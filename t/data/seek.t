@@ -200,6 +200,7 @@ is_deeply $result->values, [
 ];
 
 $seek->ignore(1);
+
 is @{$seek->search('id')->values}, 1;
 is @{$seek->search('patient')->values}, 0;
 is @{$seek->search('patient.name')->values}, 0;
@@ -229,5 +230,53 @@ is @{$seek->search('*:0.**')->values}, 48;
 is @{$seek->search('*.@.**')->values}, 87;
 is @{$seek->search('**.name')->values}, 21;
 is @{$seek->search('**')->values}, 93;
+
+$seek->ignore(0);
+
+# invalid/unknown root
+eval {$seek->search('medications')->values};
+isa_ok $@, 'Data::Seek::Exception::RootInvalid'
+    or diag $@->message;
+
+eval {$seek->search('patient')->values};
+isa_ok $@, 'Data::Seek::Exception::RootInvalid'
+    or diag $@->message;
+
+eval {$seek->search('@.name')->values};
+isa_ok $@, 'Data::Seek::Exception::RootUnknown'
+    or diag $@->message;
+
+eval {$seek->search('ids')->values};
+isa_ok $@, 'Data::Seek::Exception::RootUnknown'
+    or diag $@->message;
+
+eval {$seek->search('people')->values};
+isa_ok $@, 'Data::Seek::Exception::RootUnknown'
+    or diag $@->message;
+
+# invalid/unknown nodes
+eval {$seek->search('patient.name')->values};
+isa_ok $@, 'Data::Seek::Exception::NodeInvalid'
+    or diag $@->message;
+
+eval {$seek->search('labs.@')->values};
+isa_ok $@, 'Data::Seek::Exception::NodeInvalid'
+    or diag $@->message;
+
+eval {$seek->search('labs:1')->values};
+isa_ok $@, 'Data::Seek::Exception::NodeInvalid'
+    or diag $@->message;
+
+eval {$seek->search('id.@')->values};
+isa_ok $@, 'Data::Seek::Exception::NodeUnknown'
+    or diag $@->message;
+
+eval {$seek->search('id.@.foobar')->values};
+isa_ok $@, 'Data::Seek::Exception::NodeUnknown'
+    or diag $@->message;
+
+eval {$seek->search('id.name')->values};
+isa_ok $@, 'Data::Seek::Exception::NodeUnknown'
+    or diag $@->message;
 
 ok 1 and done_testing;

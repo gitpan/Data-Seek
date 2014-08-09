@@ -11,7 +11,7 @@ use Data::Seek::Search;
 
 use Mo 'builder';
 
-our $VERSION = '0.01'; # VERSION
+our $VERSION = '0.02'; # VERSION
 
 has 'datasets',
     builder => '_build_datasets';
@@ -78,7 +78,7 @@ Data::Seek::Search::Result - Data::Seek Search Result Class
 
 =head1 VERSION
 
-version 0.01
+version 0.02
 
 =head1 SYNOPSIS
 
@@ -86,7 +86,47 @@ version 0.01
 
 =head1 DESCRIPTION
 
-Data::Seek::Search::Result is a module for ... .
+Data::Seek::Search::Result is a class within L<Data::Seek> which provides access
+to the search results produced by L<Data::Seek::Search>.
+
+=head1 ATTRIBUTES
+
+=head2 datasets
+
+    my $dataset = $result->dataset;
+
+Perform the search and introspection using the search object,
+L<Data::Seek::Search>, and cache the resulting data set.
+
+=head2 search
+
+    my $search = $result->search;
+
+Reference the search object, L<Data::Seek::Search>, which the resulting data set
+is derived from.
+
+=head1 METHODS
+
+=head2 data
+
+    my $data = $result->data;
+
+Produce a data structure, i.e. a hash reference, comprised of only the nodes
+matching the criteria used in the search.
+
+=head2 nodes
+
+    my $nodes = $result->nodes;
+
+Produce a data structure, i.e. an array reference, comprised of only the node
+keys/paths matching the criteria used in the search.
+
+=head2 values
+
+    my $values = $result->values;
+
+Produce a data structure, i.e. an array reference, comprised of only the values
+matching the criteria used in the search.
 
 =encoding utf8
 

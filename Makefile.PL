@@ -25,7 +25,7 @@ my %WriteMakefileArgs = (
     "Mo" => "0.38"
   },
   "TEST_REQUIRES" => {},
-  "VERSION" => "0.01",
+  "VERSION" => "0.02",
   "test" => {
     "TESTS" => "t/data/*.t t/data/seek/*.t t/data/seek/exception/*.t t/data/seek/search/*.t"
   }

@@ -9,7 +9,7 @@ use Mo;
 
 use Hash::Flatten ();
 
-our $VERSION = '0.01'; # VERSION
+our $VERSION = '0.02'; # VERSION
 
 has 'object';
 
@@ -39,16 +39,42 @@ Data::Seek::Data - Data::Seek Data Structure Container
 
 =head1 VERSION
 
-version 0.01
+version 0.02
 
 =head1 SYNOPSIS
 
-    use Data::Seek::Serializer;
+    use Data::Seek::Data;
 
 =head1 DESCRIPTION
 
-Data::Seek::Serializer creates flattened/folded data structures to be
-introspected by L<Data::Seek>.
+Data::Seek::Data is a class within L<Data::Seek> which acts as a container for a
+data structure which is intended to be provided to L<Data::Seek::Search>.
+
+=head1 ATTRIBUTES
+
+=head2 object
+
+    $data->object;
+    $data->object($hash);
+
+Contains the data structure to be introspected, encoded and/or decoded, and must
+be a hash reference.
+
+=head1 METHODS
+
+=head2 decode
+
+    my $hash = $data->decode;
+
+Uses L<Hash::Flatten> to unflatten/unfold the data structure returning a hash
+reference.
+
+=head2 encode
+
+    my $hash = $data->encode;
+
+Uses L<Hash::Flatten> to flatten/fold the data structure returning a hash
+reference.
 
 =encoding utf8
 

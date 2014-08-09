@@ -9,6 +9,7 @@ README
 README.mkdn
 cpanfile
 lib/Data/Seek.pm
+lib/Data/Seek/Concepts.pod
 lib/Data/Seek/Data.pm
 lib/Data/Seek/Exception.pm
 lib/Data/Seek/Exception/NodeInvalid.pm

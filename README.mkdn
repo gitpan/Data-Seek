@@ -4,7 +4,7 @@ Data::Seek - Search Complex Data Structures
 
 # VERSION
 
-version 0.01
+version 0.02
 
 # SYNOPSIS
 
@@ -26,6 +26,42 @@ sub-node(s) to be returned in the result. Data::Seek is akin to [Data::Dpath](ht
 but with far fewer features, a simpler node selection syntax, and a
 non-recursive approach toward traversal which makes Data::Seek extremely fast
 and efficient.
+
+An even better reason to use Data::Seek is it's ability to throw exception
+objects which explain, in detail, why a search failed. This is very useful
+internally, and externally when processing foreign data structures where you
+need to provide detailed errors explaining how to resolve the missing or
+malformed data nodes. For more information on the underlying concepts, please
+see [Data::Seek::Concepts](http://search.cpan.org/perldoc?Data::Seek::Concepts).
+
+# ATTRIBUTES
+
+## data
+
+    $seeker->data;
+    $seeker->data(Data::Seek::Data->new(...));
+
+The data structure to be introspected, must be a hash reference, blessed or not,
+which defaults to or becomes a [Data::Seek::Data](http://search.cpan.org/perldoc?Data::Seek::Data) object.
+
+## ignore
+
+    $seeker->ignore;
+    $seeker->ignore(1);
+
+Bypass exceptions thrown when a criterion finds an unknown or invalid node in
+the data structure.
+
+# METHODS
+
+## search
+
+    my @criteria = ('id', 'person.name.*');
+    my $result   = $seeker->search(@criteria);
+
+Prepare a search object for using the supplied criteria and return a result
+object. Introspection is triggered when the result object is enacted. See
+[Data::Seek::Search::Result](http://search.cpan.org/perldoc?Data::Seek::Search::Result) for usage information.
 
 # AUTHOR
 

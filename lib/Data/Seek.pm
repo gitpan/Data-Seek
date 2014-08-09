@@ -10,7 +10,7 @@ use Data::Seek::Search;
 
 use Mo 'default';
 
-our $VERSION = '0.01'; # VERSION
+our $VERSION = '0.02'; # VERSION
 
 has 'data',
     default => sub {{}};
@@ -23,9 +23,11 @@ sub search {
     my $data   = $self->data;
     my $ignore = $self->ignore;
 
-    Data::Seek::Exception->throw(
-        message => 'DATA NOT A HASH REFERENCE'
-    ) if 'HASH' ne ref $data;
+    unless (UNIVERSAL::isa($data, 'HASH')) {
+        Data::Seek::Exception->throw(
+            message => 'DATA NOT A HASH REFERENCE OR BLESSED HASH OBJECT'
+        );
+    }
 
     my $object = Data::Seek::Data->new(object => $data);
     my $search = Data::Seek::Search->new(data => $object, ignore => $ignore);
@@ -48,7 +50,7 @@ Data::Seek - Search Complex Data Structures
 
 =head1 VERSION
 
-version 0.01
+version 0.02
 
 =head1 SYNOPSIS
 
@@ -70,6 +72,42 @@ sub-node(s) to be returned in the result. Data::Seek is akin to L<Data::Dpath>
 but with far fewer features, a simpler node selection syntax, and a
 non-recursive approach toward traversal which makes Data::Seek extremely fast
 and efficient.
+
+An even better reason to use Data::Seek is it's ability to throw exception
+objects which explain, in detail, why a search failed. This is very useful
+internally, and externally when processing foreign data structures where you
+need to provide detailed errors explaining how to resolve the missing or
+malformed data nodes. For more information on the underlying concepts, please
+see L<Data::Seek::Concepts>.
+
+=head1 ATTRIBUTES
+
+=head2 data
+
+    $seeker->data;
+    $seeker->data(Data::Seek::Data->new(...));
+
+The data structure to be introspected, must be a hash reference, blessed or not,
+which defaults to or becomes a L<Data::Seek::Data> object.
+
+=head2 ignore
+
+    $seeker->ignore;
+    $seeker->ignore(1);
+
+Bypass exceptions thrown when a criterion finds an unknown or invalid node in
+the data structure.
+
+=head1 METHODS
+
+=head2 search
+
+    my @criteria = ('id', 'person.name.*');
+    my $result   = $seeker->search(@criteria);
+
+Prepare a search object for using the supplied criteria and return a result
+object. Introspection is triggered when the result object is enacted. See
+L<Data::Seek::Search::Result> for usage information.
 
 =encoding utf8
 

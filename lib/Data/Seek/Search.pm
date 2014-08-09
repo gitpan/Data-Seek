@@ -1,4 +1,4 @@
-# Data::Seek Search Class
+# ABSTRACT: Data::Seek Search Execution Class
 package Data::Seek::Search;
 
 use 5.10.0;
@@ -14,7 +14,7 @@ use Data::Seek::Search::Result;
 
 use Mo 'default';
 
-our $VERSION = '0.01'; # VERSION
+our $VERSION = '0.02'; # VERSION
 
 has 'criteria',
     default => sub {{}};
@@ -242,7 +242,17 @@ sub result {
 
 __END__
 
-=encoding utf8
+=pod
+
+=encoding UTF-8
+
+=head1 NAME
+
+Data::Seek::Search - Data::Seek Search Execution Class
+
+=head1 VERSION
+
+version 0.02
 
 =head1 SYNOPSIS
 
@@ -250,6 +260,78 @@ __END__
 
 =head1 DESCRIPTION
 
-Data::Seek::Search is a module for ... .
+Data::Seek::Search is a class within L<Data::Seek> which provides the search
+mechanism for introspecting data structures.
+
+=head1 ATTRIBUTES
+
+=head2 criteria
+
+    $search->criteria;
+    $search->criteria({
+        '*'                       => 0,
+        'person.name.first'       => 1,
+        'person.name.last'        => 2,
+        'person.settings.@.name'  => 3,
+        'person.settings.@.type'  => 4,
+        'person.settings.@.value' => 5,
+    });
+
+A collection of criterion which will be used to match nodes within the data
+structure when introspected, in the order registered.
+
+=head2 data
+
+    $search->data;
+    $search->data(Data::Seek::Data->new(...));
+
+The data structure to be introspected, must be a hash reference, blessed or not,
+which defaults to or becomes a L<Data::Seek::Data> object.
+
+=head2 ignore
+
+    $search->ignore;
+    $search->ignore(1);
+
+Bypass exceptions thrown when a criterion finds an unknown or invalid node in
+the data structure.
+
+=head1 METHODS
+
+=head2 criterion
+
+    $search->criterion('*');
+
+Register a criterion to be used to introspect the registered data structure. A
+criterion is only valid if it begins with a array index, and array iterator, or
+a node key; Also can only contain letters, numbers, underscores, periods, and
+semi-colons. See L<Data::Seek::Concepts> for more information.
+
+=head2 perform
+
+    my $dataset = $search->perform;
+
+Introspect the data structure using the registered criteria and settings, and
+return a result set of operations and matching data nodes.
+
+=head2 result
+
+    my $result = $search->result;
+
+Return a search result object, L<Data::Seek::Search::Result>, based on the
+current search object.
+
+=encoding utf8
+
+=head1 AUTHOR
+
+Al Newkirk <anewkirk@ana.io>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2014 by Al Newkirk.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =cut
