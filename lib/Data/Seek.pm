@@ -10,7 +10,7 @@ use Data::Seek::Search;
 
 use Mo 'default';
 
-our $VERSION = '0.03'; # VERSION
+our $VERSION = '0.04'; # VERSION
 
 has 'data',
     default => sub {{}};
@@ -50,7 +50,7 @@ Data::Seek - Search Complex Data Structures
 
 =head1 VERSION
 
-version 0.03
+version 0.04
 
 =head1 SYNOPSIS
 

@@ -10,7 +10,7 @@ use Mo;
 
 extends 'Data::Seek::Exception';
 
-our $VERSION = '0.03'; # VERSION
+our $VERSION = '0.04'; # VERSION
 
 has 'criterion';
 has 'separator';
@@ -54,7 +54,7 @@ Data::Seek::Exception::NodeUnknown - Data::Seek Unknown Node Exception Class
 
 =head1 VERSION
 
-version 0.03
+version 0.04
 
 =head1 SYNOPSIS
 

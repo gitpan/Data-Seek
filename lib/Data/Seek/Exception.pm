@@ -13,7 +13,7 @@ use Scalar::Util ();
 
 use overload fallback => 1, '""' => \&as_string;
 
-our $VERSION = '0.03'; # VERSION
+our $VERSION = '0.04'; # VERSION
 
 has 'code';
 has 'file';
@@ -71,8 +71,7 @@ sub throw_subclass {
     my $subclass = join '::', $class, $subspace;
 
     # gen exception sub-class dynamically if not loaded
-    eval "package ${subclass}; use parent '@{[$class]}'; 1;"
-        unless eval "$subclass->can('can')";
+    eval "package ${subclass}; use parent '@{[$class]}'; 1;";
 
     # throw generated exception
     @_ = ($class, %args);

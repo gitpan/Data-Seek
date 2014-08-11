@@ -9,7 +9,7 @@ use Mo;
 
 use Hash::Flatten ();
 
-our $VERSION = '0.03'; # VERSION
+our $VERSION = '0.04'; # VERSION
 
 has 'object';
 
@@ -39,7 +39,7 @@ Data::Seek::Data - Data::Seek Data Structure Container
 
 =head1 VERSION
 
-version 0.03
+version 0.04
 
 =head1 SYNOPSIS
 
