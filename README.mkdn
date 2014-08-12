@@ -4,7 +4,7 @@ Data::Seek - Search Complex Data Structures
 
 # VERSION
 
-version 0.04
+version 0.05
 
 # SYNOPSIS
 
@@ -33,6 +33,14 @@ malformed data nodes. For more information on the underlying concepts, please
 see [Data::Seek::Concepts](http://search.cpan.org/perldoc?Data::Seek::Concepts).
 
 # ATTRIBUTES
+
+## cache
+
+    $seeker->cache;
+    $seeker->cache(1);
+
+Encode the data structure and cache the result. Allows multiple queries to
+execute faster. Caching is disabled by default.
 
 ## data
 

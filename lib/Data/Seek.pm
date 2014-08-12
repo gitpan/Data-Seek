@@ -10,7 +10,10 @@ use Data::Seek::Search;
 
 use Mo 'default';
 
-our $VERSION = '0.04'; # VERSION
+our $VERSION = '0.05'; # VERSION
+
+has 'cache',
+    default => 0;
 
 has 'data',
     default => sub {{}};
@@ -20,6 +23,7 @@ has 'ignore',
 
 sub search {
     my ($self, @criteria) = @_;
+    my $cache  = $self->cache;
     my $data   = $self->data;
     my $ignore = $self->ignore;
 
@@ -29,9 +33,30 @@ sub search {
         );
     }
 
-    my $object = Data::Seek::Data->new(object => $data);
-    my $search = Data::Seek::Search->new(data => $object, ignore => $ignore);
+    my $search;
+
+    if ($self->cache) {
+        if ($search = $self->{cached_search}) {
+            $search->criteria({});
+        }
+    }
+
+    $search //= Data::Seek::Search->new(
+        cache  => $cache,
+        ignore => $ignore,
+        data   => Data::Seek::Data->new(
+            object => $data
+        ),
+    );
+
     $search->criterion($_) for @criteria;
+
+    if ($self->cache) {
+        $self->{cached_search} = $search;
+    }
+    else {
+        $self->{cached_search} = undef;
+    }
 
     return $search->result;
 }
@@ -50,7 +75,7 @@ Data::Seek - Search Complex Data Structures
 
 =head1 VERSION
 
-version 0.04
+version 0.05
 
 =head1 SYNOPSIS
 
@@ -79,6 +104,14 @@ malformed data nodes. For more information on the underlying concepts, please
 see L<Data::Seek::Concepts>.
 
 =head1 ATTRIBUTES
+
+=head2 cache
+
+    $seeker->cache;
+    $seeker->cache(1);
+
+Encode the data structure and cache the result. Allows multiple queries to
+execute faster. Caching is disabled by default.
 
 =head2 data
 

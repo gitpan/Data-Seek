@@ -199,6 +199,18 @@ is_deeply $result->values, [
     'Chest X-Ray',
 ];
 
+$seek->cache(1);
+
+$seek->data->{id} = 45678;
+is $seek->search('id')->values->[0], 45678;
+
+for (1..5) {
+    $seek->data->{id} = 12345 * $_;
+    is $seek->search('id')->values->[0], 45678,
+        'Search is based on cached data';
+}
+
+$seek->cache(0);
 $seek->ignore(1);
 
 is @{$seek->search('id')->values}, 1;

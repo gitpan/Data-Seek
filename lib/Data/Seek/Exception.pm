@@ -13,7 +13,7 @@ use Scalar::Util ();
 
 use overload fallback => 1, '""' => \&as_string;
 
-our $VERSION = '0.04'; # VERSION
+our $VERSION = '0.05'; # VERSION
 
 has 'code';
 has 'file';

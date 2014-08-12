@@ -1,6 +1,10 @@
 Changelog for Data-Seek
 
-0.04 2014-08-11T15:21:54
+0.05 2014-08-12T11:55:16
+ - Added caching functionality.
+
+0.04 2014-08-11T15:22:00
+ - v0.04
  - Fixed exception base class throw_subclass issue on Perl 5.18+
 
 0.03 2014-08-09T18:19:10

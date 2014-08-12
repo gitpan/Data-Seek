@@ -12,15 +12,25 @@ use Data::Seek::Exception::NodeInvalid;
 use Data::Seek::Exception::NodeUnknown;
 use Data::Seek::Search::Result;
 
-use Mo 'default';
+use Mo 'builder', 'default';
 
-our $VERSION = '0.04'; # VERSION
+our $VERSION = '0.05'; # VERSION
+
+has 'cache',
+    default => 0;
 
 has 'criteria',
     default => sub {{}};
 
 has 'data',
     default => sub {{}};
+
+has 'data_cache',
+    builder => '_build_data_cache';
+
+sub _build_data_cache {
+    shift->data->encode
+}
 
 has 'ignore',
     default => 0;
@@ -52,12 +62,13 @@ sub criterion {
 
 sub perform {
     my $self = shift;
-    my $data = $self->data;
 
     my $criteria = $self->criteria;
     $criteria = { reverse %$criteria };
 
-    my $dataset = $data->encode;
+    my $dataset = $self->cache ?
+        $self->data_cache : $self->data->encode;
+
     my @orders = sort keys %$criteria;
     my @criteria = @$criteria{@orders};
 
@@ -252,7 +263,7 @@ Data::Seek::Search - Data::Seek Search Execution Class
 
 =head1 VERSION
 
-version 0.04
+version 0.05
 
 =head1 SYNOPSIS
 
@@ -264,6 +275,14 @@ Data::Seek::Search is a class within L<Data::Seek> which provides the search
 mechanism for introspecting data structures.
 
 =head1 ATTRIBUTES
+
+=head2 cache
+
+    $search->cache;
+    $search->cache(1);
+
+Encode the data structure and cache the result. Allows multiple queries to
+execute faster. Caching is disabled by default.
 
 =head2 criteria
 
@@ -287,6 +306,15 @@ structure when introspected, in the order registered.
 
 The data structure to be introspected, must be a hash reference, blessed or not,
 which defaults to or becomes a L<Data::Seek::Data> object.
+
+=head2 data_cache
+
+    $search->data_cache;
+    $search->data_cache(Data::Seek::Data->new(...)->encode);
+
+The encoded data structure to be introspected, must be an encoded hash
+reference, e.g. the result from calling the encode method on a
+L<Data::Seek::Data> object.
 
 =head2 ignore
 
